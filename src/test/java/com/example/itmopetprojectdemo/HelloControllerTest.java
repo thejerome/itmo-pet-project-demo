@@ -20,12 +20,27 @@ class HelloControllerTest {
 
     @Test
     void testHello() throws Exception {
-
         mvc.perform(
                 get("/hello"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Hello, World!"));
+    }
 
+
+    @Test
+    void testHelloUsername() throws Exception {
+
+        testUsername("Johnny Silverhand");
+        testUsername("Ryan Gosling");
+
+    }
+
+    private void testUsername(final String name) throws Exception {
+        mvc.perform(
+                get("/hello")
+                        .param("name", name))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello, " + name + "!"));
     }
 
 
